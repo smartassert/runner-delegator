@@ -32,7 +32,8 @@ class RunnerClientHandlerFactory
                 if (false === ctype_digit($buffer)) {
                     $output->write($buffer);
                 }
-            });
+            })
+        ;
 
         return $handler;
     }

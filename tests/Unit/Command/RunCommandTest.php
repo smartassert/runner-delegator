@@ -157,11 +157,13 @@ class RunCommandTest extends TestCase
             $client
                 ->shouldReceive('request')
                 ->with($expectedTarget)
-                ->andThrow($throwable);
+                ->andThrow($throwable)
+            ;
         } else {
             $client
                 ->shouldReceive('request')
-                ->with($expectedTarget);
+                ->with($expectedTarget)
+            ;
         }
 
         return $client;
@@ -169,14 +171,14 @@ class RunCommandTest extends TestCase
 
     /**
      * @param array<mixed> $debugContext
-     *
      */
     private function createLogger(string $debugExceptionMessage, array $debugContext): LoggerInterface
     {
         $logger = \Mockery::mock(LoggerInterface::class);
         $logger
             ->shouldReceive('debug')
-            ->with($debugExceptionMessage, $debugContext);
+            ->with($debugExceptionMessage, $debugContext)
+        ;
 
         return $logger;
     }
@@ -192,7 +194,8 @@ class RunCommandTest extends TestCase
             foreach ($argumentCollection as $argument) {
                 $output
                     ->shouldReceive($methodName)
-                    ->with($argument);
+                    ->with($argument)
+                ;
             }
         }
 

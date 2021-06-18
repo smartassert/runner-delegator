@@ -22,46 +22,6 @@ abstract class AbstractDelegatorTest extends TestCase
         $this->compilerClient = Client::createFromHostAndPort('localhost', 9000);
     }
 
-    protected function compile(string $source, string $target): SuiteManifest
-    {
-        $output = '';
-
-        $handler = (new Handler())
-            ->addCallback(function (string $buffer) use (&$output) {
-                $output .= $buffer;
-            });
-
-        $this->compilerClient->request(
-            sprintf('./compiler --source=%s --target=%s', $source, $target),
-            $handler
-        );
-
-        $outputContentLines = explode("\n", $output);
-
-        $exitCode = (int) array_pop($outputContentLines);
-        self::assertSame(0, $exitCode);
-
-        $suiteManifestData = Yaml::parse(implode("\n", $outputContentLines));
-
-        return SuiteManifest::fromArray($suiteManifestData);
-    }
-
-    protected function removeCompiledArtifacts(string $target): void
-    {
-        $this->compilerClient->request(sprintf('rm %s/*.php', $target));
-    }
-
-    /**
-     * @param array<mixed> $expectedOutputDocuments
-     */
-    protected static function assertDelegatorOutput(array $expectedOutputDocuments, string $content): void
-    {
-        $yamlDocumentSetParser = new Parser();
-        $outputDocuments = $yamlDocumentSetParser->parse($content);
-
-        self::assertSame($expectedOutputDocuments, $outputDocuments);
-    }
-
     /**
      * @return array[]
      */
@@ -156,5 +116,46 @@ abstract class AbstractDelegatorTest extends TestCase
                 ],
             ],
         ];
+    }
+
+    protected function compile(string $source, string $target): SuiteManifest
+    {
+        $output = '';
+
+        $handler = (new Handler())
+            ->addCallback(function (string $buffer) use (&$output) {
+                $output .= $buffer;
+            })
+        ;
+
+        $this->compilerClient->request(
+            sprintf('./compiler --source=%s --target=%s', $source, $target),
+            $handler
+        );
+
+        $outputContentLines = explode("\n", $output);
+
+        $exitCode = (int) array_pop($outputContentLines);
+        self::assertSame(0, $exitCode);
+
+        $suiteManifestData = Yaml::parse(implode("\n", $outputContentLines));
+
+        return SuiteManifest::fromArray($suiteManifestData);
+    }
+
+    protected function removeCompiledArtifacts(string $target): void
+    {
+        $this->compilerClient->request(sprintf('rm %s/*.php', $target));
+    }
+
+    /**
+     * @param array<mixed> $expectedOutputDocuments
+     */
+    protected static function assertDelegatorOutput(array $expectedOutputDocuments, string $content): void
+    {
+        $yamlDocumentSetParser = new Parser();
+        $outputDocuments = $yamlDocumentSetParser->parse($content);
+
+        self::assertSame($expectedOutputDocuments, $outputDocuments);
     }
 }
