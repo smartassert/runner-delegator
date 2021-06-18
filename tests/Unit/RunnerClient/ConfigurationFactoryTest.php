@@ -13,7 +13,7 @@ class ConfigurationFactoryTest extends TestCase
     /**
      * @dataProvider createCollectionFromEnvDataProvider
      *
-     * @param array<mixed> $env
+     * @param array<mixed>    $env
      * @param Configuration[] $expectedConfigurations
      */
     public function testCreateCollectionFromEnv(array $env, array $expectedConfigurations): void

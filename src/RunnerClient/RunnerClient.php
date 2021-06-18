@@ -23,8 +23,6 @@ class RunnerClient extends Client
     }
 
     /**
-     * @param Handler|null $handler
-     *
      * @throws ClientCreationException
      * @throws SocketErrorException
      * @throws InvalidRemotePathException

@@ -19,7 +19,7 @@ class FactoryTest extends TestCase
     /**
      * @dataProvider loadFromEnvDataProvider
      *
-     * @param array<mixed> $env
+     * @param array<mixed>   $env
      * @param RunnerClient[] $expectedClients
      */
     public function testLoadFromEnv(array $env, Handler $handler, array $expectedClients): void

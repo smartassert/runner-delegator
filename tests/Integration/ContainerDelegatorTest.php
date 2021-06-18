@@ -30,7 +30,8 @@ class ContainerDelegatorTest extends AbstractDelegatorTest
             $delegatorClientHandler = (new Handler())
                 ->addCallback(function (string $buffer) use (&$delegatorClientOutput) {
                     $delegatorClientOutput .= $buffer;
-                });
+                })
+            ;
 
             $delegatorClient->request(
                 sprintf(

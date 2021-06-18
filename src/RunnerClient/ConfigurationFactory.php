@@ -55,7 +55,6 @@ class ConfigurationFactory
     }
 
     /**
-     *
      * @return array<mixed>
      */
     private function findRunnerConfigurationComponent(
