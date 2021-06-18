@@ -30,27 +30,20 @@ class RunCommand extends Command
      * @var array<string, RunnerClient>
      */
     private array $runnerClients;
-    private LoggerInterface $logger;
-    private YamlGenerator $yamlGenerator;
 
     /**
      * @param RunnerClient[] $runnerClients
-     * @param LoggerInterface $logger
-     * @param YamlGenerator $yamlGenerator
      */
     public function __construct(
         array $runnerClients,
-        LoggerInterface $logger,
-        YamlGenerator $yamlGenerator
+        private LoggerInterface $logger,
+        private YamlGenerator $yamlGenerator
     ) {
         parent::__construct(self::NAME);
 
         $this->runnerClients = array_filter($runnerClients, function ($item) {
             return $item instanceof RunnerClient;
         });
-
-        $this->logger = $logger;
-        $this->yamlGenerator = $yamlGenerator;
     }
 
     protected function configure(): void
@@ -111,7 +104,6 @@ class RunCommand extends Command
     }
 
     /**
-     * @param \Exception $exception
      * @param array<mixed> $context
      */
     private function logException(\Exception $exception, array $context = []): void

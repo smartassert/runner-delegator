@@ -53,7 +53,6 @@ abstract class AbstractDelegatorTest extends TestCase
 
     /**
      * @param array<mixed> $expectedOutputDocuments
-     * @param string $content
      */
     protected static function assertDelegatorOutput(array $expectedOutputDocuments, string $content): void
     {

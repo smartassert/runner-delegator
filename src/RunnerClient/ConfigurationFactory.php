@@ -55,10 +55,6 @@ class ConfigurationFactory
     }
 
     /**
-     * @param string $suffix
-     * @param string $component
-     * @param string $key
-     * @param string $value
      *
      * @return array<mixed>
      */
