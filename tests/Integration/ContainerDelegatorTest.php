@@ -13,8 +13,6 @@ class ContainerDelegatorTest extends AbstractDelegatorTest
     /**
      * @dataProvider delegatorDataProvider
      *
-     * @param string $source
-     * @param string $target
      * @param array<mixed> $expectedOutputDocuments
      */
     public function testDelegator(string $source, string $target, array $expectedOutputDocuments): void

@@ -26,9 +26,6 @@ class RunCommandTest extends TestCase
      * @dataProvider runSuccessDataProvider
      *
      * @param RunnerClient[] $runnerClients
-     * @param string $browser
-     * @param string $path
-     * @param LoggerInterface|null $logger
      */
     public function testRunSuccess(
         array $runnerClients,
@@ -171,10 +168,8 @@ class RunCommandTest extends TestCase
     }
 
     /**
-     * @param string $debugExceptionMessage
      * @param array<mixed> $debugContext
      *
-     * @return LoggerInterface
      */
     private function createLogger(string $debugExceptionMessage, array $debugContext): LoggerInterface
     {
@@ -188,8 +183,6 @@ class RunCommandTest extends TestCase
 
     /**
      * @param array<string, string[]> $calls
-     *
-     * @return OutputInterface
      */
     private function createCommandOutput(array $calls): OutputInterface
     {

@@ -9,19 +9,14 @@ class Configuration
     public const KEY_HOST = 'host';
     public const KEY_PORT = 'port';
 
-    private string $host;
-    private int $port;
-
-    public function __construct(string $host, int $port)
-    {
-        $this->host = $host;
-        $this->port = $port;
+    public function __construct(
+        private string $host,
+        private int $port
+    ) {
     }
 
     /**
      * @param array<mixed> $data
-     *
-     * @return self
      */
     public static function fromArray(array $data): self
     {

@@ -24,7 +24,6 @@ class ConfigurationTest extends TestCase
      * @dataProvider fromArrayDataProvider
      *
      * @param array<mixed> $data
-     * @param Configuration $expectedConfiguration
      */
     public function testCreateFromArray(array $data, Configuration $expectedConfiguration): void
     {

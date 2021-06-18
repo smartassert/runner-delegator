@@ -9,18 +9,11 @@ use webignition\TcpCliProxyClient\Services\ConnectionStringFactory;
 
 class Factory
 {
-    private ConfigurationFactory $runnerClientConfigurationFactory;
-    private ConnectionStringFactory $connectionStringFactory;
-    private Handler $handler;
-
     public function __construct(
-        ConfigurationFactory $runnerClientConfigurationFactory,
-        ConnectionStringFactory $connectionStringFactory,
-        Handler $handler
+        private ConfigurationFactory $runnerClientConfigurationFactory,
+        private ConnectionStringFactory $connectionStringFactory,
+        private Handler $handler
     ) {
-        $this->runnerClientConfigurationFactory = $runnerClientConfigurationFactory;
-        $this->connectionStringFactory = $connectionStringFactory;
-        $this->handler = $handler;
     }
 
     /**

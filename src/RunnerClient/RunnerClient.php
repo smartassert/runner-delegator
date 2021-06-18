@@ -14,17 +14,15 @@ use webignition\TcpCliProxyClient\Handler;
 class RunnerClient extends Client
 {
     private const RUNNER_COMMAND = './bin/runner --path=%s';
-    private Handler $handler;
 
-    public function __construct(string $connectionString, Handler $handler)
-    {
+    public function __construct(
+        string $connectionString,
+        private Handler $handler
+    ) {
         parent::__construct($connectionString);
-
-        $this->handler = $handler;
     }
 
     /**
-     * @param string $request
      * @param Handler|null $handler
      *
      * @throws ClientCreationException
