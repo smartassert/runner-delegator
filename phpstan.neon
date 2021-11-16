@@ -1,9 +1,9 @@
 parameters:
-  level: 8
+  level: 9
   paths:
     - bin
     - src
     - tests
   inferPrivatePropertyTypeFromConstructor: true
-  excludes_analyse:
+  excludePaths:
     - '*/tests/build/*'

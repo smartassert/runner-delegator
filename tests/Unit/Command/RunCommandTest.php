@@ -52,7 +52,7 @@ class RunCommandTest extends TestCase
     }
 
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public function runSuccessDataProvider(): array
     {

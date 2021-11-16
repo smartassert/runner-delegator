@@ -26,7 +26,7 @@ class ConfigurationFactoryTest extends TestCase
     }
 
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public function createCollectionFromEnvDataProvider(): array
     {

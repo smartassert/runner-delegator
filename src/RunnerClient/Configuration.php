@@ -21,19 +21,10 @@ class Configuration
     public static function fromArray(array $data): self
     {
         $host = $data[self::KEY_HOST] ?? '';
-        if (!is_string($host)) {
-            $host = '';
-        }
+        $host = is_string($host) ? $host : '';
 
         $port = $data[self::KEY_PORT] ?? 0;
-
-        if (ctype_digit($port)) {
-            $port = (int) $port;
-        }
-
-        if (!is_int($port)) {
-            $port = 0;
-        }
+        $port = is_int($port) || (ctype_digit($port) && is_string($port)) ? (int) $port : 0;
 
         return new Configuration($host, $port);
     }

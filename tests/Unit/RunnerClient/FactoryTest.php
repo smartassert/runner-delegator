@@ -36,7 +36,7 @@ class FactoryTest extends TestCase
     }
 
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public function loadFromEnvDataProvider(): array
     {
