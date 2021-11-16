@@ -4,58 +4,34 @@ declare(strict_types=1);
 
 namespace webignition\BasilRunnerDelegator\Tests\Integration;
 
+use webignition\BasilRunnerDelegator\Tests\Model\CliArguments;
+use webignition\BasilRunnerDelegator\Tests\Model\DelegatorCliCommand;
+use webignition\BasilRunnerDelegator\Tests\Model\ExecutionOutput;
 use webignition\TcpCliProxyClient\Client;
 use webignition\TcpCliProxyClient\Handler;
-use webignition\YamlDocumentSetParser\Parser;
 
 class ContainerDelegatorTest extends AbstractDelegatorTest
 {
-    /**
-     * @dataProvider delegatorDataProvider
-     *
-     * @param array<mixed> $expectedOutputDocuments
-     */
-    public function testDelegator(string $source, string $target, array $expectedOutputDocuments): void
+    protected function getExecutionOutput(CliArguments $cliArguments): ExecutionOutput
     {
-        $outputDocuments = [];
+        $delegatorClientOutput = '';
+        $delegatorClient = Client::createFromHostAndPort('localhost', 9003);
 
-        $suiteManifest = $this->compile($source, $target);
+        $delegatorClientHandler = (new Handler())
+            ->addCallback(function (string $buffer) use (&$delegatorClientOutput) {
+                $delegatorClientOutput .= $buffer;
+            })
+        ;
 
-        $yamlDocumentSetParser = new Parser();
+        $delegatorClient->request(
+            (string) new DelegatorCliCommand($cliArguments),
+            $delegatorClientHandler
+        );
 
-        foreach ($suiteManifest->getTestManifests() as $testManifest) {
-            $delegatorClientOutput = '';
-            $delegatorClient = Client::createFromHostAndPort('localhost', 9003);
+        $delegatorClientOutputLines = explode("\n", $delegatorClientOutput);
+        $delegatorExitCode = (int) array_pop($delegatorClientOutputLines);
+        $delegatorClientOutputContent = implode("\n", $delegatorClientOutputLines);
 
-            $delegatorClientHandler = (new Handler())
-                ->addCallback(function (string $buffer) use (&$delegatorClientOutput) {
-                    $delegatorClientOutput .= $buffer;
-                })
-            ;
-
-            $delegatorClient->request(
-                sprintf(
-                    './bin/delegator --browser %s %s',
-                    $testManifest->getConfiguration()->getBrowser(),
-                    $testManifest->getTarget()
-                ),
-                $delegatorClientHandler
-            );
-
-            $delegatorClientOutputLines = explode("\n", $delegatorClientOutput);
-            $delegatorExitCode = (int) array_pop($delegatorClientOutputLines);
-            $delegatorClientOutputContent = implode("\n", $delegatorClientOutputLines);
-
-            self::assertSame(0, $delegatorExitCode);
-
-            $outputDocuments = array_merge(
-                $outputDocuments,
-                $yamlDocumentSetParser->parse($delegatorClientOutputContent)
-            );
-        }
-
-        self::assertEquals($expectedOutputDocuments, $outputDocuments);
-
-        $this->removeCompiledArtifacts($target);
+        return new ExecutionOutput($delegatorClientOutputContent, $delegatorExitCode);
     }
 }

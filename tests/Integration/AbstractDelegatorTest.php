@@ -7,6 +7,8 @@ namespace webignition\BasilRunnerDelegator\Tests\Integration;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Yaml\Yaml;
 use webignition\BasilCompilerModels\SuiteManifest;
+use webignition\BasilRunnerDelegator\Tests\Model\CliArguments;
+use webignition\BasilRunnerDelegator\Tests\Model\ExecutionOutput;
 use webignition\TcpCliProxyClient\Client;
 use webignition\TcpCliProxyClient\Handler;
 use webignition\YamlDocumentSetParser\Parser;
@@ -20,6 +22,38 @@ abstract class AbstractDelegatorTest extends TestCase
         parent::setUp();
 
         $this->compilerClient = Client::createFromHostAndPort('localhost', 9000);
+    }
+
+    /**
+     * @dataProvider delegatorDataProvider
+     *
+     * @param array<mixed> $expectedOutputDocuments
+     */
+    public function testDelegator(string $source, string $target, array $expectedOutputDocuments): void
+    {
+        $outputDocuments = [];
+
+        $suiteManifest = $this->compile($source, $target);
+
+        $yamlDocumentSetParser = new Parser();
+
+        foreach ($suiteManifest->getTestManifests() as $testManifest) {
+            $executionOutput = $this->getExecutionOutput(new CliArguments(
+                $testManifest->getConfiguration()->getBrowser(),
+                $testManifest->getTarget()
+            ));
+
+            self::assertSame(0, $executionOutput->getExitCode());
+
+            $outputDocuments = array_merge(
+                $outputDocuments,
+                $yamlDocumentSetParser->parse($executionOutput->getContent())
+            );
+        }
+
+        self::assertEquals($expectedOutputDocuments, $outputDocuments);
+
+        $this->removeCompiledArtifacts($target);
     }
 
     /**
@@ -117,6 +151,8 @@ abstract class AbstractDelegatorTest extends TestCase
             ],
         ];
     }
+
+    abstract protected function getExecutionOutput(CliArguments $cliArguments): ExecutionOutput;
 
     protected function compile(string $source, string $target): SuiteManifest
     {
