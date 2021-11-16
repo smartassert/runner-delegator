@@ -20,7 +20,9 @@ class ConfigurationFactory
         $configurations = [];
 
         foreach ($configurationData as $name => $clientData) {
-            $configurations[$name] = Configuration::fromArray($clientData);
+            if (is_array($clientData)) {
+                $configurations[$name] = Configuration::fromArray($clientData);
+            }
         }
 
         return $configurations;

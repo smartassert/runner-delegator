@@ -23,7 +23,7 @@ abstract class AbstractDelegatorTest extends TestCase
     }
 
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public function delegatorDataProvider(): array
     {
@@ -139,6 +139,8 @@ abstract class AbstractDelegatorTest extends TestCase
         self::assertSame(0, $exitCode);
 
         $suiteManifestData = Yaml::parse(implode("\n", $outputContentLines));
+        self::assertIsArray($suiteManifestData);
+        assert(is_array($suiteManifestData));
 
         return SuiteManifest::fromArray($suiteManifestData);
     }
