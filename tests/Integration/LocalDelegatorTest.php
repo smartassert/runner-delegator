@@ -5,43 +5,17 @@ declare(strict_types=1);
 namespace webignition\BasilRunnerDelegator\Tests\Integration;
 
 use Symfony\Component\Process\Process;
-use webignition\YamlDocumentSetParser\Parser;
+use webignition\BasilRunnerDelegator\Tests\Model\CliArguments;
+use webignition\BasilRunnerDelegator\Tests\Model\DelegatorCliCommand;
+use webignition\BasilRunnerDelegator\Tests\Model\ExecutionOutput;
 
 class LocalDelegatorTest extends AbstractDelegatorTest
 {
-    /**
-     * @dataProvider delegatorDataProvider
-     *
-     * @param array<mixed> $expectedOutputDocuments
-     */
-    public function testDelegator(string $source, string $target, array $expectedOutputDocuments): void
+    protected function getExecutionOutput(CliArguments $cliArguments): ExecutionOutput
     {
-        $outputDocuments = [];
+        $process = Process::fromShellCommandline((string) new DelegatorCliCommand($cliArguments));
+        $exitCode = $process->run();
 
-        $suiteManifest = $this->compile($source, $target);
-
-        $yamlDocumentSetParser = new Parser();
-
-        foreach ($suiteManifest->getTestManifests() as $testManifest) {
-            $runnerProcess = Process::fromShellCommandline(
-                sprintf(
-                    './bin/delegator --browser %s %s',
-                    $testManifest->getConfiguration()->getBrowser(),
-                    $testManifest->getTarget()
-                )
-            );
-
-            $runnerExitCode = $runnerProcess->run();
-            self::assertSame(0, $runnerExitCode);
-
-            $outputDocuments = array_merge(
-                $outputDocuments,
-                $yamlDocumentSetParser->parse($runnerProcess->getOutput())
-            );
-        }
-
-        self::assertEquals($expectedOutputDocuments, $outputDocuments);
-
-        $this->removeCompiledArtifacts($target);
+        return new ExecutionOutput($process->getOutput(), $exitCode);
     }
 }
