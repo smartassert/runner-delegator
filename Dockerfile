@@ -1,4 +1,4 @@
-FROM php:8-cli-buster
+FROM php:8-alpine
 
 LABEL org.opencontainers.image.source="https://github.com/smartassert/runner-delegator"
 
@@ -11,10 +11,8 @@ COPY composer.json composer.lock phpunit.run.xml /app/
 COPY bin /app/bin
 COPY src /app/src
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends libzip-dev zip \
-    && docker-php-ext-install pcntl sockets zip > /dev/null \
-    && rm -rf /var/lib/apt/lists/* \
+RUN apk --no-cache add libzip-dev \
+    && docker-php-ext-install pcntl sockets zip \
     && composer check-platform-reqs --ansi \
     && composer install --prefer-dist --no-dev \
     && composer clear-cache \
