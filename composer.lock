@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7ce1649fd397d656481d02dcfb9acfa2",
+    "content-hash": "fa8578af1952f19fd8c6b7c85e9d375d",
     "packages": [
         {
             "name": "monolog/monolog",
@@ -2448,16 +2448,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.1.2",
+            "version": "1.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "bcea0ae85868a89d5789c75f012c93129f842934"
+                "reference": "1dd8f3e40bf7aa30031a75c65cece99220a161b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/bcea0ae85868a89d5789c75f012c93129f842934",
-                "reference": "bcea0ae85868a89d5789c75f012c93129f842934",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/1dd8f3e40bf7aa30031a75c65cece99220a161b8",
+                "reference": "1dd8f3e40bf7aa30031a75c65cece99220a161b8",
                 "shasum": ""
             },
             "require": {
@@ -2473,7 +2473,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0-dev"
+                    "dev-master": "1.4-dev"
                 }
             },
             "autoload": {
@@ -2488,7 +2488,7 @@
             "description": "PHPStan - PHP Static Analysis Tool",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.1.2"
+                "source": "https://github.com/phpstan/phpstan/tree/1.4.2"
             },
             "funding": [
                 {
@@ -2508,7 +2508,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-11-09T12:41:09+00:00"
+            "time": "2022-01-18T16:09:11+00:00"
         },
         {
             "name": "phpstan/phpstan-mockery",
