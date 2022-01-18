@@ -14,8 +14,13 @@ class ContainerDelegatorTest extends AbstractDelegatorTest
 {
     protected function getExecutionOutput(CliArguments $cliArguments): ExecutionOutput
     {
+        $delegatorPort = $_ENV['DELEGATOR_PORT'] ?? null;
+        if (!is_string($delegatorPort)) {
+            throw new \RuntimeException('Delegator port not configured. Please set in phpunit configuration.');
+        }
+
         $delegatorClientOutput = '';
-        $delegatorClient = Client::createFromHostAndPort('localhost', 9003);
+        $delegatorClient = Client::createFromHostAndPort('localhost', (int) $delegatorPort);
 
         $delegatorClientHandler = (new Handler())
             ->addCallback(function (string $buffer) use (&$delegatorClientOutput) {
