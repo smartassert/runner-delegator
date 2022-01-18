@@ -21,7 +21,12 @@ abstract class AbstractDelegatorTest extends TestCase
     {
         parent::setUp();
 
-        $this->compilerClient = Client::createFromHostAndPort('localhost', 9000);
+        $compilerPort = $_ENV['COMPILER_PORT'] ?? null;
+        if (!is_string($compilerPort)) {
+            throw new \RuntimeException('Compiler port not configured. Please set in phpunit configuration.');
+        }
+
+        $this->compilerClient = Client::createFromHostAndPort('localhost', (int) $compilerPort);
     }
 
     /**

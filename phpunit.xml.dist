@@ -20,9 +20,11 @@
   </coverage>
   <php>
     <env name="CHROME_RUNNER_HOST" value="localhost"/>
-    <env name="CHROME_RUNNER_PORT" value="9001"/>
+    <env name="CHROME_RUNNER_PORT" value="9006"/>
     <env name="FIREFOX_RUNNER_HOST" value="localhost"/>
-    <env name="FIREFOX_RUNNER_PORT" value="9002"/>
+    <env name="FIREFOX_RUNNER_PORT" value="9007"/>
+    <env name="COMPILER_PORT" value="9005"/>
+    <env name="DELEGATOR_PORT" value="9008"/>
   </php>
   <testsuites>
     <testsuite name="Default Test Suite">
