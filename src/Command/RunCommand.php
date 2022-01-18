@@ -14,7 +14,6 @@ use webignition\BasilRunnerDelegator\Exception\InvalidRemotePathException;
 use webignition\BasilRunnerDelegator\Exception\NonExecutableRemoteTestException;
 use webignition\BasilRunnerDelegator\RunnerClient\RunnerClient;
 use webignition\BasilRunnerDocuments\Exception;
-use webignition\SymfonyConsole\TypedInput\TypedInput;
 use webignition\TcpCliProxyClient\Exception\ClientCreationException;
 use webignition\TcpCliProxyClient\Exception\SocketErrorException;
 use webignition\YamlDocumentGenerator\YamlGenerator;
@@ -65,12 +64,13 @@ class RunCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $typedInput = new TypedInput($input);
+        $browser = $input->getOption(self::OPTION_BROWSER);
+        $browser = is_string($browser) ? $browser : '';
 
-        $browser = (string) $typedInput->getStringOption(self::OPTION_BROWSER);
-        $path = (string) $typedInput->getStringArgument(self::ARGUMENT_PATH);
+        $path = $input->getArgument(self::ARGUMENT_PATH);
+        $path = is_string($path) ? $path : '';
 
         $runnerClient = $this->runnerClients[$browser] ?? null;
 
