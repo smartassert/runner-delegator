@@ -1,4 +1,4 @@
-FROM php:8-alpine
+FROM php:8.0-alpine
 
 LABEL org.opencontainers.image.source="https://github.com/smartassert/runner-delegator"
 
