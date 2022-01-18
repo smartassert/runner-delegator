@@ -6,3 +6,4 @@
 /.env*local
 compiler.phar
 runner.phar
+composer.lock
