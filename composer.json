@@ -48,18 +48,18 @@
         ]
     },
     "require": {
-        "php": ">=8",
+        "php": "^8.0",
         "ext-json": "*",
         "monolog/monolog": "^2.1",
         "psr/log": "^1.1",
-        "symfony/console": "5.4.*",
-        "symfony/process": "5.4.*",
-        "symfony/yaml": "5.4.*",
+        "symfony/console": "6.0.*",
+        "symfony/process": "6.0.*",
+        "symfony/yaml": "6.0.*",
         "webignition/basil-compiler-models": "^0.15.0",
         "webignition/basil-runner-documents": "^0.3.0",
-        "webignition/single-command-application-factory": "^0.2.0",
+        "webignition/single-command-application-factory": "^0.5.0",
         "webignition/tcp-cli-proxy-client": "^0.12.0",
-        "webignition/yaml-document-generator": "^0.3.0"
+        "webignition/yaml-document-generator": "^0.4.0"
     },
     "require-dev": {
         "mockery/mockery": "^1.4",
@@ -70,7 +70,7 @@
         "phpstan/phpstan-mockery": "^1.0",
         "phpunit/phpunit": "^9.5",
         "squizlabs/php_codesniffer": "^3.6",
-        "webignition/yaml-document-set-parser": "^0.2.0"
+        "webignition/yaml-document-set-parser": "^0.3.0"
     },
     "bin": [
       "bin/delegator"
