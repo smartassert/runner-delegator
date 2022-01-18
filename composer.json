@@ -23,8 +23,8 @@
         }
     },
     "scripts": {
-        "cs-fixer-dry-run": "./vendor/bin/php-cs-fixer fix --dry-run --verbose --show-progress none",
-        "cs-fixer-fix": "./vendor/bin/php-cs-fixer fix --diff",
+        "cs-fixer-dry-run": "docker run --rm $(if [ ! -z \"${NO_TTY}\" ]; then echo \"\"; else echo \"-t\"; fi) -w=/app -v ${PWD}:/app oskarstark/php-cs-fixer-ga:latest --allow-risky=yes --dry-run --verbose --show-progress none",
+        "cs-fixer-fix": "docker run --rm $(if [ ! -z \"${NO_TTY}\" ]; then echo \"\"; else echo \"-t\"; fi) -w=/app -v ${PWD}:/app oskarstark/php-cs-fixer-ga:latest --allow-risky=yes --diff",
         "cs-phpcs": "./vendor/bin/phpcs",
         "cs": [
             "@cs-fixer-dry-run",
@@ -63,7 +63,6 @@
         "webignition/yaml-document-generator": "^0.3.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.0",
         "mockery/mockery": "^1.4",
         "php-mock/php-mock": "^2.3",
         "php-mock/php-mock-mockery": "^1.3",
@@ -78,6 +77,9 @@
       "bin/delegator"
     ],
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "phpstan/extension-installer": true
+        }
     }
 }
