@@ -1,4 +1,4 @@
-url: "http://nginx/form.html"
+url: "http://html-fixtures/form.html"
 elements:
   form_one: $"form[action='/action1']"
   input_with_value: $form_one >> $"input[name='input-with-value']"

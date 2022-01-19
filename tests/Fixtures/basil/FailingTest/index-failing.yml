@@ -1,11 +1,11 @@
 config:
   browsers:
     - chrome
-  url: http://nginx/index.html
+  url: http://html-fixtures/index.html
 
 "verify page is open":
   assertions:
-    - $page.url is "http://nginx/index.html"
+    - $page.url is "http://html-fixtures/index.html"
 
 "verify links are present":
   assertions:

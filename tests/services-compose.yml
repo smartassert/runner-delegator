@@ -1,11 +1,11 @@
 version: "3"
 
 services:
-  nginx:
-    image: nginx
-    container_name: test-nginx-container
+  html-fixtures:
+    image: caddy:2.4.5
+    container_name: html-fixtures
     volumes:
-      - ../tests/Fixtures/html:/usr/share/nginx/html
+      - ../tests/Fixtures/html:/usr/share/caddy
 
   compiler:
     image: ghcr.io/smartassert/compiler:0.31
