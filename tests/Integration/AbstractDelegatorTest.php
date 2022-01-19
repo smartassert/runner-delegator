@@ -78,7 +78,7 @@ abstract class AbstractDelegatorTest extends TestCase
                         'statements' => [
                             [
                                 'type' => 'assertion',
-                                'source' => '$page.url is "http://nginx/index.html"',
+                                'source' => '$page.url is "http://html-fixtures/index.html"',
                                 'status' => 'passed',
                             ],
                             [
@@ -95,7 +95,7 @@ abstract class AbstractDelegatorTest extends TestCase
                         'statements' => [
                             [
                                 'type' => 'assertion',
-                                'source' => '$page.url is "http://nginx/index.html"',
+                                'source' => '$page.url is "http://html-fixtures/index.html"',
                                 'status' => 'passed',
                             ],
                             [
@@ -118,7 +118,7 @@ abstract class AbstractDelegatorTest extends TestCase
                         'statements' => [
                             [
                                 'type' => 'assertion',
-                                'source' => '$page.url is "http://nginx/index.html"',
+                                'source' => '$page.url is "http://html-fixtures/index.html"',
                                 'status' => 'passed',
                             ],
                         ],
