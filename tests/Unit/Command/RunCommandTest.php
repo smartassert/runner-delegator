@@ -115,7 +115,9 @@ class RunCommandTest extends TestCase
                 'commandOutput' => $this->createCommandOutput([
                     'write' => [
                         $yamlGenerator->generate(
-                            Exception::createFromThrowable($chromeInvalidRemotePathException)->withoutTrace()
+                            Exception::createFromThrowable($chromeInvalidRemotePathException)
+                                ->withoutTrace()
+                                ->getData()
                         ),
                     ],
                 ]),
@@ -135,7 +137,9 @@ class RunCommandTest extends TestCase
                 'commandOutput' => $this->createCommandOutput([
                     'write' => [
                         $yamlGenerator->generate(
-                            Exception::createFromThrowable($chromeNonExecutableTestException)->withoutTrace()
+                            Exception::createFromThrowable($chromeNonExecutableTestException)
+                                ->withoutTrace()
+                                ->getData()
                         ),
                     ],
                 ]),

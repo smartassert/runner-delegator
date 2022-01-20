@@ -89,7 +89,7 @@ class RunCommand extends Command
                 ]);
 
                 $exception = Exception::createFromThrowable($remoteTestExecutionException)->withoutTrace();
-                $output->write($this->yamlGenerator->generate($exception));
+                $output->write($this->yamlGenerator->generate($exception->getData()));
             }
         } else {
             $this->logger->debug(
