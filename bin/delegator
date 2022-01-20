@@ -3,7 +3,7 @@
 
 declare(strict_types=1);
 
-namespace webignition\BasilRunnerDelegator\Bin;
+namespace SmartAssert\RunnerDelegator\Bin;
 
 const VERSION = 'dev-master';
 
@@ -11,10 +11,10 @@ use Monolog\Formatter\JsonFormatter;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Symfony\Component\Console\Output\StreamOutput;
-use webignition\BasilRunnerDelegator\Command\RunCommand;
-use webignition\BasilRunnerDelegator\RunnerClient\ConfigurationFactory;
-use webignition\BasilRunnerDelegator\RunnerClient\Factory as RunnerClientFactory;
-use webignition\BasilRunnerDelegator\Services\RunnerClientHandlerFactory;
+use SmartAssert\RunnerDelegator\Command\RunCommand;
+use SmartAssert\RunnerDelegator\RunnerClient\ConfigurationFactory;
+use SmartAssert\RunnerDelegator\RunnerClient\Factory as RunnerClientFactory;
+use SmartAssert\RunnerDelegator\Services\RunnerClientHandlerFactory;
 use webignition\SingleCommandApplicationFactory\Factory as SingleCommandApplicationFactory;
 use webignition\TcpCliProxyClient\Services\ConnectionStringFactory;
 use webignition\YamlDocumentGenerator\YamlGenerator;
