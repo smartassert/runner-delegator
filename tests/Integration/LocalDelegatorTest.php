@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace webignition\BasilRunnerDelegator\Tests\Integration;
+namespace SmartAssert\RunnerDelegator\Tests\Integration;
 
+use SmartAssert\RunnerDelegator\Tests\Model\CliArguments;
+use SmartAssert\RunnerDelegator\Tests\Model\DelegatorCliCommand;
+use SmartAssert\RunnerDelegator\Tests\Model\ExecutionOutput;
 use Symfony\Component\Process\Process;
-use webignition\BasilRunnerDelegator\Tests\Model\CliArguments;
-use webignition\BasilRunnerDelegator\Tests\Model\DelegatorCliCommand;
-use webignition\BasilRunnerDelegator\Tests\Model\ExecutionOutput;
 
 class LocalDelegatorTest extends AbstractDelegatorTest
 {

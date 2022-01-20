@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace webignition\BasilRunnerDelegator\Tests\Integration;
+namespace SmartAssert\RunnerDelegator\Tests\Integration;
 
 use PHPUnit\Framework\TestCase;
+use SmartAssert\RunnerDelegator\Tests\Model\CliArguments;
+use SmartAssert\RunnerDelegator\Tests\Model\ExecutionOutput;
 use Symfony\Component\Yaml\Yaml;
 use webignition\BasilCompilerModels\SuiteManifest;
-use webignition\BasilRunnerDelegator\Tests\Model\CliArguments;
-use webignition\BasilRunnerDelegator\Tests\Model\ExecutionOutput;
 use webignition\TcpCliProxyClient\Client;
 use webignition\TcpCliProxyClient\Handler;
 use webignition\YamlDocumentSetParser\Parser;

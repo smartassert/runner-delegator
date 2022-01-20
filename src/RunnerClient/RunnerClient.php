@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace webignition\BasilRunnerDelegator\RunnerClient;
+namespace SmartAssert\RunnerDelegator\RunnerClient;
 
-use webignition\BasilRunnerDelegator\Exception\InvalidRemotePathException;
-use webignition\BasilRunnerDelegator\Exception\NonExecutableRemoteTestException;
+use SmartAssert\RunnerDelegator\Exception\InvalidRemotePathException;
+use SmartAssert\RunnerDelegator\Exception\NonExecutableRemoteTestException;
 use webignition\TcpCliProxyClient\Client;
 use webignition\TcpCliProxyClient\Exception\ClientCreationException;
 use webignition\TcpCliProxyClient\Exception\SocketErrorException;

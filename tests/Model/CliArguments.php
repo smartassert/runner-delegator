@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace webignition\BasilRunnerDelegator\Tests\Model;
+namespace SmartAssert\RunnerDelegator\Tests\Model;
 
 class CliArguments
 {

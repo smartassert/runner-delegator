@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace webignition\BasilRunnerDelegator\Services;
+namespace SmartAssert\RunnerDelegator\Services;
 
+use SmartAssert\RunnerDelegator\Exception\InvalidRemotePathException;
+use SmartAssert\RunnerDelegator\Exception\NonExecutableRemoteTestException;
 use Symfony\Component\Console\Output\OutputInterface;
-use webignition\BasilRunnerDelegator\Exception\InvalidRemotePathException;
-use webignition\BasilRunnerDelegator\Exception\NonExecutableRemoteTestException;
 use webignition\TcpCliProxyClient\Handler;
 
 class RunnerClientHandlerFactory

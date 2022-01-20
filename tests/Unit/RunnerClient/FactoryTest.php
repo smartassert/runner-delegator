@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace webignition\BasilRunnerDelegator\Tests\Unit\RunnerClient;
+namespace SmartAssert\RunnerDelegator\Tests\Unit\RunnerClient;
 
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
-use webignition\BasilRunnerDelegator\RunnerClient\ConfigurationFactory;
-use webignition\BasilRunnerDelegator\RunnerClient\Factory;
-use webignition\BasilRunnerDelegator\RunnerClient\RunnerClient;
+use SmartAssert\RunnerDelegator\RunnerClient\ConfigurationFactory;
+use SmartAssert\RunnerDelegator\RunnerClient\Factory;
+use SmartAssert\RunnerDelegator\RunnerClient\RunnerClient;
 use webignition\TcpCliProxyClient\Handler;
 use webignition\TcpCliProxyClient\Services\ConnectionStringFactory;
 

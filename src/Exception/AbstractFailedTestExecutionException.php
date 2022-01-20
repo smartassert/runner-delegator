@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace webignition\BasilRunnerDelegator\Exception;
+namespace SmartAssert\RunnerDelegator\Exception;
 
 abstract class AbstractFailedTestExecutionException extends \Exception
 {

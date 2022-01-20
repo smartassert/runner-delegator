@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace webignition\BasilRunnerDelegator\RunnerClient;
+namespace SmartAssert\RunnerDelegator\RunnerClient;
 
 class ConfigurationFactory
 {

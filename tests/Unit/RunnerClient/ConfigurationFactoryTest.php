@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace webignition\BasilRunnerDelegator\Tests\Unit\RunnerClient;
+namespace SmartAssert\RunnerDelegator\Tests\Unit\RunnerClient;
 
 use PHPUnit\Framework\TestCase;
-use webignition\BasilRunnerDelegator\RunnerClient\Configuration;
-use webignition\BasilRunnerDelegator\RunnerClient\ConfigurationFactory;
+use SmartAssert\RunnerDelegator\RunnerClient\Configuration;
+use SmartAssert\RunnerDelegator\RunnerClient\ConfigurationFactory;
 
 class ConfigurationFactoryTest extends TestCase
 {
