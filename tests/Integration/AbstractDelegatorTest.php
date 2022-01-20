@@ -73,35 +73,39 @@ abstract class AbstractDelegatorTest extends TestCase
                 'expectedOutputDocuments' => [
                     [
                         'type' => 'step',
-                        'name' => 'verify page is open',
-                        'status' => 'passed',
-                        'statements' => [
-                            [
-                                'type' => 'assertion',
-                                'source' => '$page.url is "http://html-fixtures/index.html"',
-                                'status' => 'passed',
-                            ],
-                            [
-                                'type' => 'assertion',
-                                'source' => '$page.title is "Test fixture web server default document"',
-                                'status' => 'passed',
+                        'payload' => [
+                            'name' => 'verify page is open',
+                            'status' => 'passed',
+                            'statements' => [
+                                [
+                                    'type' => 'assertion',
+                                    'source' => '$page.url is "http://html-fixtures/index.html"',
+                                    'status' => 'passed',
+                                ],
+                                [
+                                    'type' => 'assertion',
+                                    'source' => '$page.title is "Test fixture web server default document"',
+                                    'status' => 'passed',
+                                ],
                             ],
                         ],
                     ],
                     [
                         'type' => 'step',
-                        'name' => 'verify page is open',
-                        'status' => 'passed',
-                        'statements' => [
-                            [
-                                'type' => 'assertion',
-                                'source' => '$page.url is "http://html-fixtures/index.html"',
-                                'status' => 'passed',
-                            ],
-                            [
-                                'type' => 'assertion',
-                                'source' => '$page.title is "Test fixture web server default document"',
-                                'status' => 'passed',
+                        'payload' => [
+                            'name' => 'verify page is open',
+                            'status' => 'passed',
+                            'statements' => [
+                                [
+                                    'type' => 'assertion',
+                                    'source' => '$page.url is "http://html-fixtures/index.html"',
+                                    'status' => 'passed',
+                                ],
+                                [
+                                    'type' => 'assertion',
+                                    'source' => '$page.title is "Test fixture web server default document"',
+                                    'status' => 'passed',
+                                ],
                             ],
                         ],
                     ],
@@ -113,37 +117,41 @@ abstract class AbstractDelegatorTest extends TestCase
                 'expectedOutputDocuments' => [
                     [
                         'type' => 'step',
-                        'name' => 'verify page is open',
-                        'status' => 'passed',
-                        'statements' => [
-                            [
-                                'type' => 'assertion',
-                                'source' => '$page.url is "http://html-fixtures/index.html"',
-                                'status' => 'passed',
+                        'payload' => [
+                            'name' => 'verify page is open',
+                            'status' => 'passed',
+                            'statements' => [
+                                [
+                                    'type' => 'assertion',
+                                    'source' => '$page.url is "http://html-fixtures/index.html"',
+                                    'status' => 'passed',
+                                ],
                             ],
                         ],
                     ],
                     [
                         'type' => 'step',
-                        'name' => 'verify links are present',
-                        'status' => 'failed',
-                        'statements' => [
-                            [
-                                'type' => 'assertion',
-                                'source' => '$"a[id=link-to-assertions]" not-exists',
-                                'status' => 'failed',
-                                'summary' => [
-                                    'operator' => 'not-exists',
-                                    'source' => [
-                                        'type' => 'node',
-                                        'body' => [
-                                            'type' => 'element',
-                                            'identifier' => [
-                                                'source' => '$"a[id=link-to-assertions]"',
-                                                'properties' => [
-                                                    'type' => 'css',
-                                                    'locator' => 'a[id=link-to-assertions]',
-                                                    'position' => 1,
+                        'payload' => [
+                            'name' => 'verify links are present',
+                            'status' => 'failed',
+                            'statements' => [
+                                [
+                                    'type' => 'assertion',
+                                    'source' => '$"a[id=link-to-assertions]" not-exists',
+                                    'status' => 'failed',
+                                    'summary' => [
+                                        'operator' => 'not-exists',
+                                        'source' => [
+                                            'type' => 'node',
+                                            'body' => [
+                                                'type' => 'element',
+                                                'identifier' => [
+                                                    'source' => '$"a[id=link-to-assertions]"',
+                                                    'properties' => [
+                                                        'type' => 'css',
+                                                        'locator' => 'a[id=link-to-assertions]',
+                                                        'position' => 1,
+                                                    ],
                                                 ],
                                             ],
                                         ],
