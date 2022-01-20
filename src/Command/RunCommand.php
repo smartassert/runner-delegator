@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace webignition\BasilRunnerDelegator\Command;
+namespace SmartAssert\RunnerDelegator\Command;
 
 use Psr\Log\LoggerInterface;
+use SmartAssert\RunnerDelegator\Exception\InvalidRemotePathException;
+use SmartAssert\RunnerDelegator\Exception\NonExecutableRemoteTestException;
+use SmartAssert\RunnerDelegator\RunnerClient\RunnerClient;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use webignition\BasilRunnerDelegator\Exception\InvalidRemotePathException;
-use webignition\BasilRunnerDelegator\Exception\NonExecutableRemoteTestException;
-use webignition\BasilRunnerDelegator\RunnerClient\RunnerClient;
 use webignition\BasilRunnerDocuments\Exception;
 use webignition\TcpCliProxyClient\Exception\ClientCreationException;
 use webignition\TcpCliProxyClient\Exception\SocketErrorException;

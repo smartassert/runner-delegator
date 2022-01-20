@@ -13,13 +13,13 @@
     ],
     "autoload": {
         "psr-4": {
-            "webignition\\BasilRunnerDelegator\\": "src",
-            "webignition\\BasilRunnerDelegator\\Bin\\": "bin"
+            "SmartAssert\\RunnerDelegator\\": "src",
+            "SmartAssert\\RunnerDelegator\\Bin\\": "bin"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "webignition\\BasilRunnerDelegator\\Tests\\": "tests"
+            "SmartAssert\\RunnerDelegator\\Tests\\": "tests"
         }
     },
     "scripts": {

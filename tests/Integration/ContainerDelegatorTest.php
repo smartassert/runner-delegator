@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace webignition\BasilRunnerDelegator\Tests\Integration;
+namespace SmartAssert\RunnerDelegator\Tests\Integration;
 
-use webignition\BasilRunnerDelegator\Tests\Model\CliArguments;
-use webignition\BasilRunnerDelegator\Tests\Model\DelegatorCliCommand;
-use webignition\BasilRunnerDelegator\Tests\Model\ExecutionOutput;
+use SmartAssert\RunnerDelegator\Tests\Model\CliArguments;
+use SmartAssert\RunnerDelegator\Tests\Model\DelegatorCliCommand;
+use SmartAssert\RunnerDelegator\Tests\Model\ExecutionOutput;
 use webignition\TcpCliProxyClient\Client;
 use webignition\TcpCliProxyClient\Handler;
 
