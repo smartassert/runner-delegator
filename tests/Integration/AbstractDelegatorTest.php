@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 use SmartAssert\RunnerDelegator\Tests\Model\CliArguments;
 use SmartAssert\RunnerDelegator\Tests\Model\ExecutionOutput;
 use Symfony\Component\Yaml\Yaml;
-use webignition\BasilCompilerModels\SuiteManifest;
+use webignition\BasilCompilerModels\TestManifestCollection;
 use webignition\TcpCliProxyClient\Client;
 use webignition\TcpCliProxyClient\Handler;
 use webignition\YamlDocumentSetParser\Parser;
@@ -38,13 +38,13 @@ abstract class AbstractDelegatorTest extends TestCase
     {
         $outputDocuments = [];
 
-        $suiteManifest = $this->compile($source, $target);
+        $manifestCollection = $this->compile($source, $target);
 
         $yamlDocumentSetParser = new Parser();
 
-        foreach ($suiteManifest->getTestManifests() as $testManifest) {
+        foreach ($manifestCollection->getManifests() as $testManifest) {
             $executionOutput = $this->getExecutionOutput(new CliArguments(
-                $testManifest->getConfiguration()->getBrowser(),
+                $testManifest->getBrowser(),
                 $testManifest->getTarget()
             ));
 
@@ -167,7 +167,7 @@ abstract class AbstractDelegatorTest extends TestCase
 
     abstract protected function getExecutionOutput(CliArguments $cliArguments): ExecutionOutput;
 
-    protected function compile(string $source, string $target): SuiteManifest
+    protected function compile(string $source, string $target): TestManifestCollection
     {
         $output = '';
 
@@ -187,11 +187,10 @@ abstract class AbstractDelegatorTest extends TestCase
         $exitCode = (int) array_pop($outputContentLines);
         self::assertSame(0, $exitCode);
 
-        $suiteManifestData = Yaml::parse(implode("\n", $outputContentLines));
-        self::assertIsArray($suiteManifestData);
-        assert(is_array($suiteManifestData));
+        $testManifestCollectionData = Yaml::parse(implode("\n", $outputContentLines));
+        self::assertIsArray($testManifestCollectionData);
 
-        return SuiteManifest::fromArray($suiteManifestData);
+        return TestManifestCollection::fromArray($testManifestCollectionData);
     }
 
     protected function removeCompiledArtifacts(string $target): void
