@@ -53,7 +53,7 @@
         "monolog/monolog": "^2.1",
         "psr/log": "^1.1",
         "symfony/console": "^8",
-        "symfony/process": "6.0.*",
+        "symfony/process": "^8",
         "symfony/yaml": "6.0.*",
         "webignition/basil-runner-documents": "^1.0",
         "webignition/tcp-cli-proxy-client": "^1.0",
