@@ -10,12 +10,14 @@ const VERSION = 'dev-master';
 use Monolog\Formatter\JsonFormatter;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\StreamOutput;
 use SmartAssert\RunnerDelegator\Command\RunCommand;
 use SmartAssert\RunnerDelegator\RunnerClient\ConfigurationFactory;
 use SmartAssert\RunnerDelegator\RunnerClient\Factory as RunnerClientFactory;
 use SmartAssert\RunnerDelegator\Services\RunnerClientHandlerFactory;
-use webignition\SingleCommandApplicationFactory\Factory as SingleCommandApplicationFactory;
+use Symfony\Component\Console\SingleCommandApplication;
 use webignition\TcpCliProxyClient\Services\ConnectionStringFactory;
 use webignition\YamlDocumentGenerator\YamlGenerator;
 
@@ -36,14 +38,22 @@ $runnerClientFactory = new RunnerClientFactory(
 
 $logger->pushHandler($logHandler);
 
-$application = (new SingleCommandApplicationFactory())->create(
-    new RunCommand(
-        $runnerClientFactory->loadFromEnv($_SERVER),
-        $logger,
-        new YamlGenerator()
-    ),
-    VERSION
+$command = new RunCommand(
+    $runnerClientFactory->loadFromEnv($_SERVER),
+    $logger,
+    new YamlGenerator(),
 );
+
+$application = new SingleCommandApplication();
+$application->setName((string) $command->getName());
+$application->setDefinition($command->getDefinition());
+
+$application
+    ->setVersion(VERSION)
+    ->setCode(function (InputInterface $input, OutputInterface $output) use ($command) {
+        return $command->run($input, $output);
+    })
+;
 
 $exitCode = $application->run(null, $output);
 
