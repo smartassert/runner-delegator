@@ -71,95 +71,76 @@ abstract class AbstractDelegatorTest extends TestCase
                 'source' => '/app/source/Test/index-open-chrome-firefox.yml',
                 'target' => '/app/tests',
                 'expectedOutputDocuments' => [
-                    [
-                        'type' => 'step',
-                        'payload' => [
-                            'name' => 'verify page is open',
-                            'status' => 'passed',
-                            'statements' => [
-                                [
-                                    'type' => 'assertion',
-                                    'source' => '$page.url is "http://html-fixtures/index.html"',
-                                    'status' => 'passed',
-                                ],
-                                [
-                                    'type' => 'assertion',
-                                    'source' => '$page.title is "Test fixture web server default document"',
-                                    'status' => 'passed',
-                                ],
-                            ],
-                        ],
-                    ],
-                    [
-                        'type' => 'step',
-                        'payload' => [
-                            'name' => 'verify page is open',
-                            'status' => 'passed',
-                            'statements' => [
-                                [
-                                    'type' => 'assertion',
-                                    'source' => '$page.url is "http://html-fixtures/index.html"',
-                                    'status' => 'passed',
-                                ],
-                                [
-                                    'type' => 'assertion',
-                                    'source' => '$page.title is "Test fixture web server default document"',
-                                    'status' => 'passed',
-                                ],
-                            ],
-                        ],
-                    ],
+                    <<< 'EOD'
+                    type: step
+                    payload:
+                      name: 'verify page is open'
+                      status: passed
+                      statements:
+                        -
+                          type: assertion
+                          source: '$page.url is "http://html-fixtures/index.html"'
+                          status: passed
+                        -
+                          type: assertion
+                          source: '$page.title is "Test fixture web server default document"'
+                          status: passed
+                    EOD,
+                    <<< 'EOD'
+                    type: step
+                    payload:
+                      name: 'verify page is open'
+                      status: passed
+                      statements:
+                        -
+                          type: assertion
+                          source: '$page.url is "http://html-fixtures/index.html"'
+                          status: passed
+                        -
+                          type: assertion
+                          source: '$page.title is "Test fixture web server default document"'
+                          status: passed
+                    EOD,
                 ],
             ],
             'index failing chrome' => [
                 'source' => '/app/source/FailingTest/index-failing.yml',
                 'target' => '/app/tests',
                 'expectedOutputDocuments' => [
-                    [
-                        'type' => 'step',
-                        'payload' => [
-                            'name' => 'verify page is open',
-                            'status' => 'passed',
-                            'statements' => [
-                                [
-                                    'type' => 'assertion',
-                                    'source' => '$page.url is "http://html-fixtures/index.html"',
-                                    'status' => 'passed',
-                                ],
-                            ],
-                        ],
-                    ],
-                    [
-                        'type' => 'step',
-                        'payload' => [
-                            'name' => 'verify links are present',
-                            'status' => 'failed',
-                            'statements' => [
-                                [
-                                    'type' => 'assertion',
-                                    'source' => '$"a[id=link-to-assertions]" not-exists',
-                                    'status' => 'failed',
-                                    'summary' => [
-                                        'operator' => 'not-exists',
-                                        'source' => [
-                                            'type' => 'node',
-                                            'body' => [
-                                                'type' => 'element',
-                                                'identifier' => [
-                                                    'source' => '$"a[id=link-to-assertions]"',
-                                                    'properties' => [
-                                                        'type' => 'css',
-                                                        'locator' => 'a[id=link-to-assertions]',
-                                                        'position' => 1,
-                                                    ],
-                                                ],
-                                            ],
-                                        ],
-                                    ],
-                                ],
-                            ],
-                        ],
-                    ],
+                    <<< 'EOD'
+                    type: step
+                    payload:
+                      name: 'verify page is open'
+                      status: passed
+                      statements:
+                        -
+                          type: assertion
+                          source: '$page.url is "http://html-fixtures/index.html"'
+                          status: passed
+                    EOD,
+                    <<< 'EOD'
+                    type: step
+                    payload:
+                      name: 'verify links are present'
+                      status: failed
+                      statements:
+                        -
+                          type: assertion
+                          source: '$"a[id=link-to-assertions]" not-exists'
+                          status: failed
+                          summary:
+                            operator: not-exists
+                            source:
+                              type: node
+                              body:
+                                type: element
+                                identifier:
+                                  source: '$"a[id=link-to-assertions]"'
+                                  properties:
+                                    type: css
+                                    locator: 'a[id=link-to-assertions]'
+                                    position: 1
+                    EOD,
                 ],
             ],
         ];
