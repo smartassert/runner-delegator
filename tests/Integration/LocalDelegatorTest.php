@@ -9,7 +9,7 @@ use SmartAssert\RunnerDelegator\Tests\Model\DelegatorCliCommand;
 use SmartAssert\RunnerDelegator\Tests\Model\ExecutionOutput;
 use Symfony\Component\Process\Process;
 
-class LocalDelegatorTest extends AbstractDelegatorTest
+class LocalDelegatorTest extends AbstractDelegatorTestCase
 {
     protected function getExecutionOutput(CliArguments $cliArguments): ExecutionOutput
     {

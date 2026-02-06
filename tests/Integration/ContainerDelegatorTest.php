@@ -10,7 +10,7 @@ use SmartAssert\RunnerDelegator\Tests\Model\ExecutionOutput;
 use webignition\TcpCliProxyClient\Client;
 use webignition\TcpCliProxyClient\Handler;
 
-class ContainerDelegatorTest extends AbstractDelegatorTest
+class ContainerDelegatorTest extends AbstractDelegatorTestCase
 {
     protected function getExecutionOutput(CliArguments $cliArguments): ExecutionOutput
     {
