@@ -70,7 +70,7 @@
         "phpstan/phpstan-phpunit": "^2.0",
         "phpunit/phpunit": "^12",
         "squizlabs/php_codesniffer": "^4.0",
-        "webignition/basil-compiler-models": "^5.2",
+        "webignition/basil-compiler-models": "^6.2",
         "webignition/yaml-document-set-parser": "^2.0"
     },
     "bin": [
