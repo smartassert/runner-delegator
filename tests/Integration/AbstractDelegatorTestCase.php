@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SmartAssert\RunnerDelegator\Tests\Integration;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use SmartAssert\RunnerDelegator\Tests\Model\CliArguments;
 use SmartAssert\RunnerDelegator\Tests\Model\ExecutionOutput;
@@ -13,7 +14,7 @@ use webignition\TcpCliProxyClient\Client;
 use webignition\TcpCliProxyClient\Handler;
 use webignition\YamlDocumentSetParser\Parser;
 
-abstract class AbstractDelegatorTest extends TestCase
+abstract class AbstractDelegatorTestCase extends TestCase
 {
     private Client $compilerClient;
 
@@ -30,10 +31,9 @@ abstract class AbstractDelegatorTest extends TestCase
     }
 
     /**
-     * @dataProvider delegatorDataProvider
-     *
      * @param array<mixed> $expectedOutputDocuments
      */
+    #[DataProvider('delegatorDataProvider')]
     public function testDelegator(string $source, string $target, array $expectedOutputDocuments): void
     {
         $outputDocuments = [];
@@ -64,7 +64,7 @@ abstract class AbstractDelegatorTest extends TestCase
     /**
      * @return array<mixed>
      */
-    public function delegatorDataProvider(): array
+    public static function delegatorDataProvider(): array
     {
         return [
             'index open chrome firefox' => [

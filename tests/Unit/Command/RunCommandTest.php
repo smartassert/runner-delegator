@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SmartAssert\RunnerDelegator\Tests\Unit\Command;
 
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use SmartAssert\RunnerDelegator\Command\RunCommand;
@@ -23,10 +24,9 @@ class RunCommandTest extends TestCase
     use MockeryPHPUnitIntegration;
 
     /**
-     * @dataProvider runSuccessDataProvider
-     *
      * @param RunnerClient[] $runnerClients
      */
+    #[DataProvider('runSuccessDataProvider')]
     public function testRunSuccess(
         array $runnerClients,
         string $browser,
@@ -54,7 +54,7 @@ class RunCommandTest extends TestCase
     /**
      * @return array<mixed>
      */
-    public function runSuccessDataProvider(): array
+    public static function runSuccessDataProvider(): array
     {
         $testPath = '/target/GeneratedChromeTest.php';
 
@@ -66,12 +66,12 @@ class RunCommandTest extends TestCase
         return [
             'has runner clients, test for unknown browser' => [
                 'runnerClients' => [
-                    'chrome' => $this->createRunnerClient($testPath),
+                    'chrome' => self::createRunnerClient($testPath),
                 ],
                 'browser' => 'unknown',
                 'path' => $testPath,
                 'commandOutput' => \Mockery::mock(OutputInterface::class),
-                'logger' => $this->createLogger(
+                'logger' => self::createLogger(
                     'Unknown browser \'unknown\'',
                     [
                         'browser' => 'unknown',
@@ -80,7 +80,7 @@ class RunCommandTest extends TestCase
             ],
             'client request throws SocketErrorException' => [
                 'runnerClients' => [
-                    'chrome' => $this->createRunnerClient(
+                    'chrome' => self::createRunnerClient(
                         $testPath,
                         new SocketErrorException(
                             new \ErrorException('socket error exception message')
@@ -90,11 +90,11 @@ class RunCommandTest extends TestCase
                 'browser' => 'chrome',
                 'path' => $testPath,
                 'commandOutput' => \Mockery::mock(OutputInterface::class),
-                'logger' => $this->createLogger('socket error exception message', []),
+                'logger' => self::createLogger('socket error exception message', []),
             ],
             'client request throws ClientCreationException' => [
                 'runnerClients' => [
-                    'chrome' => $this->createRunnerClient(
+                    'chrome' => self::createRunnerClient(
                         $testPath,
                         new ClientCreationException('connection string', 'client creation exception message', 123)
                     ),
@@ -102,17 +102,17 @@ class RunCommandTest extends TestCase
                 'browser' => 'chrome',
                 'path' => $testPath,
                 'commandOutput' => \Mockery::mock(OutputInterface::class),
-                'logger' => $this->createLogger('client creation exception message', [
+                'logger' => self::createLogger('client creation exception message', [
                     'connection-string' => 'connection string',
                 ]),
             ],
             'has runner clients, throws InvalidRemotePathException' => [
                 'runnerClients' => [
-                    'chrome' => $this->createRunnerClient($testPath, $chromeInvalidRemotePathException),
+                    'chrome' => self::createRunnerClient($testPath, $chromeInvalidRemotePathException),
                 ],
                 'browser' => 'chrome',
                 'path' => $testPath,
-                'commandOutput' => $this->createCommandOutput([
+                'commandOutput' => self::createCommandOutput([
                     'write' => [
                         $yamlGenerator->generate(
                             Exception::createFromThrowable($chromeInvalidRemotePathException)
@@ -121,7 +121,7 @@ class RunCommandTest extends TestCase
                         ),
                     ],
                 ]),
-                'logger' => $this->createLogger(
+                'logger' => self::createLogger(
                     'Path "/target/GeneratedChromeTest.php" not present on runner',
                     [
                         'remote-path' => '/target/GeneratedChromeTest.php',
@@ -130,11 +130,11 @@ class RunCommandTest extends TestCase
             ],
             'has runner clients, throws NonExecutableRemoteTestException' => [
                 'runnerClients' => [
-                    'chrome' => $this->createRunnerClient($testPath, $chromeNonExecutableTestException),
+                    'chrome' => self::createRunnerClient($testPath, $chromeNonExecutableTestException),
                 ],
                 'browser' => 'chrome',
                 'path' => $testPath,
-                'commandOutput' => $this->createCommandOutput([
+                'commandOutput' => self::createCommandOutput([
                     'write' => [
                         $yamlGenerator->generate(
                             Exception::createFromThrowable($chromeNonExecutableTestException)
@@ -143,7 +143,7 @@ class RunCommandTest extends TestCase
                         ),
                     ],
                 ]),
-                'logger' => $this->createLogger(
+                'logger' => self::createLogger(
                     'Failed to execute test "/target/GeneratedChromeTest.php"',
                     [
                         'remote-path' => '/target/GeneratedChromeTest.php',
@@ -153,7 +153,7 @@ class RunCommandTest extends TestCase
         ];
     }
 
-    private function createRunnerClient(string $expectedTarget, ?\Exception $throwable = null): RunnerClient
+    private static function createRunnerClient(string $expectedTarget, ?\Exception $throwable = null): RunnerClient
     {
         $client = \Mockery::mock(RunnerClient::class);
 
@@ -176,7 +176,7 @@ class RunCommandTest extends TestCase
     /**
      * @param array<mixed> $debugContext
      */
-    private function createLogger(string $debugExceptionMessage, array $debugContext): LoggerInterface
+    private static function createLogger(string $debugExceptionMessage, array $debugContext): LoggerInterface
     {
         $logger = \Mockery::mock(LoggerInterface::class);
         $logger
@@ -190,7 +190,7 @@ class RunCommandTest extends TestCase
     /**
      * @param array<string, string[]> $calls
      */
-    private function createCommandOutput(array $calls): OutputInterface
+    private static function createCommandOutput(array $calls): OutputInterface
     {
         $output = \Mockery::mock(OutputInterface::class);
 

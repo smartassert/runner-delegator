@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SmartAssert\RunnerDelegator\Tests\Unit\RunnerClient;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use SmartAssert\RunnerDelegator\RunnerClient\Configuration;
 use SmartAssert\RunnerDelegator\RunnerClient\ConfigurationFactory;
@@ -11,11 +12,10 @@ use SmartAssert\RunnerDelegator\RunnerClient\ConfigurationFactory;
 class ConfigurationFactoryTest extends TestCase
 {
     /**
-     * @dataProvider createCollectionFromEnvDataProvider
-     *
      * @param array<mixed>    $env
      * @param Configuration[] $expectedConfigurations
      */
+    #[DataProvider('createCollectionFromEnvDataProvider')]
     public function testCreateCollectionFromEnv(array $env, array $expectedConfigurations): void
     {
         $factory = new ConfigurationFactory();
@@ -28,7 +28,7 @@ class ConfigurationFactoryTest extends TestCase
     /**
      * @return array<mixed>
      */
-    public function createCollectionFromEnvDataProvider(): array
+    public static function createCollectionFromEnvDataProvider(): array
     {
         return [
             'empty' => [

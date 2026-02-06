@@ -1,7 +1,7 @@
 /bin/debug.log
 /vendor/
 .php-cs-fixer.cache
-.phpunit.result.cache
+.phpunit.cache
 /var/
 /.env*local
 compiler.phar

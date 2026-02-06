@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SmartAssert\RunnerDelegator\Tests\Unit\RunnerClient;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use SmartAssert\RunnerDelegator\RunnerClient\Configuration;
 
@@ -21,10 +22,9 @@ class ConfigurationTest extends TestCase
     }
 
     /**
-     * @dataProvider fromArrayDataProvider
-     *
      * @param array<mixed> $data
      */
+    #[DataProvider('fromArrayDataProvider')]
     public function testCreateFromArray(array $data, Configuration $expectedConfiguration): void
     {
         self::assertEquals($expectedConfiguration, Configuration::fromArray($data));
@@ -33,7 +33,7 @@ class ConfigurationTest extends TestCase
     /**
      * @return array<mixed>
      */
-    public function fromArrayDataProvider(): array
+    public static function fromArrayDataProvider(): array
     {
         return [
             'empty' => [

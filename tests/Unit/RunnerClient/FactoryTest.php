@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SmartAssert\RunnerDelegator\Tests\Unit\RunnerClient;
 
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use SmartAssert\RunnerDelegator\RunnerClient\ConfigurationFactory;
 use SmartAssert\RunnerDelegator\RunnerClient\Factory;
@@ -17,11 +18,10 @@ class FactoryTest extends TestCase
     use MockeryPHPUnitIntegration;
 
     /**
-     * @dataProvider loadFromEnvDataProvider
-     *
      * @param array<mixed>   $env
      * @param RunnerClient[] $expectedClients
      */
+    #[DataProvider('loadFromEnvDataProvider')]
     public function testLoadFromEnv(array $env, Handler $handler, array $expectedClients): void
     {
         $factory = new Factory(
@@ -38,7 +38,7 @@ class FactoryTest extends TestCase
     /**
      * @return array<mixed>
      */
-    public function loadFromEnvDataProvider(): array
+    public static function loadFromEnvDataProvider(): array
     {
         $connectionStringFactory = new ConnectionStringFactory();
         $handler = \Mockery::mock(Handler::class);
