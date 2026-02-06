@@ -9,8 +9,7 @@ class CliArguments
     public function __construct(
         private string $browser,
         private string $target,
-    ) {
-    }
+    ) {}
 
     public function __toString(): string
     {

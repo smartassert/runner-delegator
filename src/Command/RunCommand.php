@@ -83,7 +83,7 @@ class RunCommand extends Command
                 $this->logException($e, [
                     'connection-string' => $e->getConnectionString(),
                 ]);
-            } catch (InvalidRemotePathException | NonExecutableRemoteTestException $remoteTestExecutionException) {
+            } catch (InvalidRemotePathException|NonExecutableRemoteTestException $remoteTestExecutionException) {
                 $this->logException($remoteTestExecutionException, [
                     'remote-path' => $remoteTestExecutionException->getPath(),
                 ]);

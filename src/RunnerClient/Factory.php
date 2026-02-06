@@ -13,8 +13,7 @@ class Factory
         private ConfigurationFactory $runnerClientConfigurationFactory,
         private ConnectionStringFactory $connectionStringFactory,
         private Handler $handler
-    ) {
-    }
+    ) {}
 
     /**
      * @param array<mixed> $env
