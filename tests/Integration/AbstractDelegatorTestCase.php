@@ -9,7 +9,9 @@ use PHPUnit\Framework\TestCase;
 use SmartAssert\RunnerDelegator\Tests\Model\CliArguments;
 use SmartAssert\RunnerDelegator\Tests\Model\ExecutionOutput;
 use Symfony\Component\Yaml\Yaml;
-use webignition\BasilCompilerModels\TestManifestCollection;
+use webignition\BasilCompilerModels\Factory\TestManifestCollectionFactory;
+use webignition\BasilCompilerModels\Factory\TestManifestFactory;
+use webignition\BasilCompilerModels\Model\TestManifestCollection;
 use webignition\TcpCliProxyClient\Client;
 use webignition\TcpCliProxyClient\Handler;
 use webignition\YamlDocumentSetParser\Parser;
@@ -171,7 +173,9 @@ abstract class AbstractDelegatorTestCase extends TestCase
         $testManifestCollectionData = Yaml::parse(implode("\n", $outputContentLines));
         self::assertIsArray($testManifestCollectionData);
 
-        return TestManifestCollection::fromArray($testManifestCollectionData);
+        return new TestManifestCollectionFactory(
+            new TestManifestFactory(),
+        )->create($testManifestCollectionData);
     }
 
     protected function removeCompiledArtifacts(string $target): void
