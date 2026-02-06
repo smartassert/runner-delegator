@@ -28,7 +28,7 @@ class RunnerClient extends Client
      * @throws InvalidRemotePathException
      * @throws NonExecutableRemoteTestException
      */
-    public function request(string $request, Handler $handler = null): void
+    public function request(string $request, ?Handler $handler = null): void
     {
         parent::request(
             sprintf(self::RUNNER_COMMAND, $request),

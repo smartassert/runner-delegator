@@ -1,10 +1,10 @@
-ARG php_version=8.1
+ARG php_version=8.4
 
 FROM php:${php_version}-cli-alpine
 
 LABEL org.opencontainers.image.source="https://github.com/smartassert/runner-delegator"
 
-ARG proxy_server_version=0.8
+ARG proxy_server_version=1.0
 ARG php_version
 
 WORKDIR /app
@@ -15,7 +15,7 @@ COPY bin /app/bin
 COPY src /app/src
 
 RUN apk --no-cache add libzip-dev \
-    && docker-php-ext-install pcntl sockets zip \
+    && docker-php-ext-install pcntl \
     && composer install --prefer-dist --no-dev \
     && composer clear-cache \
     && curl -L https://raw.githubusercontent.com/webignition/tcp-cli-proxy-server/${proxy_server_version}/composer.json --output composer.json \
