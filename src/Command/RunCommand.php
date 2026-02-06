@@ -28,10 +28,10 @@ class RunCommand extends Command
     /**
      * @var array<string, RunnerClient>
      */
-    private array $runnerClients;
+    private array $runnerClients = [];
 
     /**
-     * @param RunnerClient[] $runnerClients
+     * @param array<mixed> $runnerClients
      */
     public function __construct(
         array $runnerClients,
@@ -40,9 +40,11 @@ class RunCommand extends Command
     ) {
         parent::__construct(self::NAME);
 
-        $this->runnerClients = array_filter($runnerClients, function ($item) {
-            return $item instanceof RunnerClient;
-        });
+        foreach ($runnerClients as $name => $runnerClient) {
+            if (is_string($name) && $runnerClient instanceof RunnerClient) {
+                $this->runnerClients[$name] = $runnerClient;
+            }
+        }
     }
 
     protected function configure(): void
