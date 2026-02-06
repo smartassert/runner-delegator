@@ -54,10 +54,10 @@
         "psr/log": "^1.1",
         "symfony/console": "^8",
         "symfony/process": "^8",
-        "symfony/yaml": "6.0.*",
+        "symfony/yaml": "^8",
         "webignition/basil-runner-documents": "^1.0",
         "webignition/tcp-cli-proxy-client": "^1.0",
-        "webignition/yaml-document-generator": "^1.0"
+        "webignition/yaml-document-generator": "^2.2"
     },
     "require-dev": {
         "mockery/mockery": "^1.4",
@@ -70,7 +70,7 @@
         "phpunit/phpunit": "^9.5",
         "squizlabs/php_codesniffer": "^3.6",
         "webignition/basil-compiler-models": "^5.2",
-        "webignition/yaml-document-set-parser": "^0.3.0"
+        "webignition/yaml-document-set-parser": "^2.0"
     },
     "bin": [
       "bin/delegator"
