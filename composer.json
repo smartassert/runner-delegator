@@ -55,7 +55,7 @@
         "symfony/console": "^8",
         "symfony/process": "^8",
         "symfony/yaml": "^8",
-        "webignition/basil-runner-documents": "^1.0",
+        "webignition/basil-runner-documents": "^1.0 || ^3.0",
         "webignition/tcp-cli-proxy-client": "^1.0",
         "webignition/yaml-document-generator": "^2.2"
     },
