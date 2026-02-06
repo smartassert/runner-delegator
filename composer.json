@@ -37,11 +37,11 @@
             "@composer static-analysis",
             "@composer test"
         ],
-        "image-integration-build": "docker-compose -f tests/services-compose.yml -f tests/self-compose.yml build",
-        "image-integration-start": "docker-compose -f tests/services-compose.yml -f tests/self-compose.yml up -d",
-        "image-integration-status": "docker-compose -f tests/services-compose.yml -f tests/self-compose.yml ps",
-        "image-integration-stop": "docker-compose -f tests/services-compose.yml -f tests/self-compose.yml stop",
-        "image-integration-destroy": "docker-compose -f tests/services-compose.yml -f tests/self-compose.yml down",
+        "image-integration-build": "docker compose -f tests/services-compose.yml -f tests/self-compose.yml build",
+        "image-integration-start": "docker compose -f tests/services-compose.yml -f tests/self-compose.yml up -d",
+        "image-integration-status": "docker compose -f tests/services-compose.yml -f tests/self-compose.yml ps",
+        "image-integration-stop": "docker compose -f tests/services-compose.yml -f tests/self-compose.yml stop",
+        "image-integration-destroy": "docker compose -f tests/services-compose.yml -f tests/self-compose.yml down",
         "test-integration": [
             "./vendor/bin/phpunit tests/Integration/LocalDelegatorTest.php",
             "./vendor/bin/phpunit tests/Integration/ContainerDelegatorTest.php"
@@ -80,6 +80,9 @@
         "sort-packages": true,
         "allow-plugins": {
             "phpstan/extension-installer": true
+        },
+        "audit": {
+            "block-insecure": false
         }
     }
 }
