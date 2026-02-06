@@ -23,7 +23,7 @@ class Configuration
         $host = is_string($host) ? $host : '';
 
         $port = $data[self::KEY_PORT] ?? 0;
-        $port = is_int($port) || (ctype_digit($port) && is_string($port)) ? (int) $port : 0;
+        $port = is_int($port) || ctype_digit($port) ? (int) $port : 0;
 
         return new Configuration($host, $port);
     }

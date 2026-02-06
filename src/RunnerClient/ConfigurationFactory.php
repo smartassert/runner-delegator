@@ -74,6 +74,7 @@ class ConfigurationFactory
             $identifier = (string) preg_replace($replacePattern, '', $key);
             $identifier = strtolower($identifier);
 
+            $result[$identifier] = [];
             $result[$identifier][$component] = $value;
         }
 
