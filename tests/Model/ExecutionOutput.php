@@ -9,8 +9,7 @@ class ExecutionOutput
     public function __construct(
         private string $content,
         private int $exitCode,
-    ) {
-    }
+    ) {}
 
     public function getContent(): string
     {

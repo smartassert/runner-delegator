@@ -12,8 +12,7 @@ class Configuration
     public function __construct(
         private string $host,
         private int $port
-    ) {
-    }
+    ) {}
 
     /**
      * @param array<mixed> $data

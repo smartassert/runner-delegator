@@ -8,8 +8,7 @@ class DelegatorCliCommand
 {
     public function __construct(
         private CliArguments $cliArguments,
-    ) {
-    }
+    ) {}
 
     public function __toString(): string
     {
