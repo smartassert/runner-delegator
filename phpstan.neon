@@ -1,7 +1,7 @@
 parameters:
   level: 10
   paths:
-    - bin
+    - bin/delegator
     - src
     - tests
   inferPrivatePropertyTypeFromConstructor: true
