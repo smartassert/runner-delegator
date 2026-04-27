@@ -17,7 +17,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use webignition\BasilRunnerDocuments\Exception;
 use webignition\TcpCliProxyClient\Exception\ClientCreationException;
 use webignition\TcpCliProxyClient\Exception\SocketErrorException;
-use webignition\TcpCliProxyClient\Handler;
 use webignition\YamlDocumentGenerator\YamlGenerator;
 
 class RunCommandTest extends TestCase
@@ -164,7 +163,8 @@ class RunCommandTest extends TestCase
                 self::assertSame($expectedTarget, $request);
 
                 return true;
-            });
+            })
+        ;
 
         if ($throwable instanceof \Throwable) {
             $requestCallExpectation->andThrow($throwable);

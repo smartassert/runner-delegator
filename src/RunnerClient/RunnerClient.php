@@ -30,7 +30,7 @@ class RunnerClient extends Client
      * @throws NonExecutableRemoteTestException
      * @throws \ErrorException
      * @throws SocketTimedOutException
- */
+     */
     public function request(string $request, Handler $handler, ?int $timeoutInSeconds = null): void
     {
         parent::request(
