@@ -16,15 +16,17 @@ use Symfony\Component\Console\Output\OutputInterface;
 use webignition\BasilRunnerDocuments\Exception;
 use webignition\TcpCliProxyClient\Exception\ClientCreationException;
 use webignition\TcpCliProxyClient\Exception\SocketErrorException;
+use webignition\TcpCliProxyClient\Exception\SocketTimedOutException;
 use webignition\TcpCliProxyClient\Handler;
 use webignition\YamlDocumentGenerator\YamlGenerator;
 
 class RunCommand extends Command
 {
-    public const OPTION_BROWSER = 'browser';
-    public const ARGUMENT_PATH = 'path';
-
-    private const NAME = 'run';
+    public const string OPTION_BROWSER = 'browser';
+    public const string OPTION_TIMEOUT_IN_SECONDS = 'timeout_in_seconds';
+    public const string ARGUMENT_PATH = 'path';
+    public const int DEFAULT_TIMEOUT_IN_SECONDS = 600;
+    private const string NAME = 'run';
 
     /**
      * @var array<string, RunnerClient>
@@ -64,6 +66,12 @@ class RunCommand extends Command
                 InputArgument::REQUIRED,
                 'Path to the generated test (to be passed on to a runner)'
             )
+            ->addOption(
+                self::OPTION_TIMEOUT_IN_SECONDS,
+                null,
+                InputOption::VALUE_REQUIRED,
+                'Execution timeout in seconds'
+            )
         ;
     }
 
@@ -75,11 +83,14 @@ class RunCommand extends Command
         $path = $input->getArgument(self::ARGUMENT_PATH);
         $path = is_string($path) ? $path : '';
 
+        $timeoutInSeconds = $input->getOption(self::OPTION_TIMEOUT_IN_SECONDS);
+        $timeoutInSeconds = is_numeric($timeoutInSeconds) ? (int) $timeoutInSeconds : self::DEFAULT_TIMEOUT_IN_SECONDS;
+
         $runnerClient = $this->runnerClients[$browser] ?? null;
 
         if ($runnerClient instanceof RunnerClient) {
             try {
-                $runnerClient->request($path, new Handler());
+                $runnerClient->request($path, new Handler(), $timeoutInSeconds);
             } catch (SocketErrorException $e) {
                 $this->logException($e);
             } catch (ClientCreationException $e) {
@@ -92,6 +103,13 @@ class RunCommand extends Command
                 ]);
 
                 $exception = Exception::createFromThrowable($remoteTestExecutionException)->withoutTrace();
+                $output->write($this->yamlGenerator->generate($exception->getData()));
+            } catch (SocketTimedOutException $socketTimedOutException) {
+                $this->logException($socketTimedOutException, [
+                    'timeout_in_seconds' => $timeoutInSeconds,
+                ]);
+
+                $exception = Exception::createFromThrowable($socketTimedOutException)->withoutTrace();
                 $output->write($this->yamlGenerator->generate($exception->getData()));
             }
         } else {
