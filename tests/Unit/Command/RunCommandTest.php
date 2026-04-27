@@ -157,17 +157,17 @@ class RunCommandTest extends TestCase
     {
         $client = \Mockery::mock(RunnerClient::class);
 
+        $requestCallExpectation = $client
+            ->shouldReceive('request')
+            ->withArgs(function (string $request) use ($expectedTarget) {
+                self::assertSame($expectedTarget, $request);
+
+                return true;
+            })
+        ;
+
         if ($throwable instanceof \Throwable) {
-            $client
-                ->shouldReceive('request')
-                ->with($expectedTarget)
-                ->andThrow($throwable)
-            ;
-        } else {
-            $client
-                ->shouldReceive('request')
-                ->with($expectedTarget)
-            ;
+            $requestCallExpectation->andThrow($throwable);
         }
 
         return $client;
