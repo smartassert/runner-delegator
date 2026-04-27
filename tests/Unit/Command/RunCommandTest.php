@@ -13,10 +13,12 @@ use SmartAssert\RunnerDelegator\Exception\InvalidRemotePathException;
 use SmartAssert\RunnerDelegator\Exception\NonExecutableRemoteTestException;
 use SmartAssert\RunnerDelegator\RunnerClient\RunnerClient;
 use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use webignition\BasilRunnerDocuments\Exception;
 use webignition\TcpCliProxyClient\Exception\ClientCreationException;
 use webignition\TcpCliProxyClient\Exception\SocketErrorException;
+use webignition\TcpCliProxyClient\Exception\SocketTimedOutException;
 use webignition\YamlDocumentGenerator\YamlGenerator;
 
 class RunCommandTest extends TestCase
@@ -149,6 +151,73 @@ class RunCommandTest extends TestCase
                         'remote-path' => '/target/GeneratedChromeTest.php',
                     ]
                 ),
+            ],
+        ];
+    }
+
+    #[DataProvider('runSocketTimedOutDataProvider')]
+    public function testRunSocketTimedOut(int|string|null $timeoutInSeconds): void
+    {
+        $testPath = '/target/GeneratedChromeTest.php';
+
+        $arguments = [
+            '--browser' => 'chrome',
+            'path' => $testPath,
+        ];
+
+        if (null !== $timeoutInSeconds) {
+            $arguments['--timeout_in_seconds'] = $timeoutInSeconds;
+        }
+
+        $input = new ArrayInput($arguments);
+
+        $exceptionTimeoutValue = null === $timeoutInSeconds
+            ? RunCommand::DEFAULT_TIMEOUT_IN_SECONDS
+            : (int) $timeoutInSeconds;
+        $socketTimedOutException = new SocketTimedOutException($exceptionTimeoutValue);
+
+        $logger = self::createLogger(
+            $socketTimedOutException->getMessage(),
+            [
+                'timeout_in_seconds' => $exceptionTimeoutValue,
+            ]
+        );
+
+        $commandOutput = new BufferedOutput();
+        $command = new RunCommand(
+            [
+                'chrome' => self::createRunnerClient($testPath, $socketTimedOutException),
+            ],
+            $logger,
+            new YamlGenerator()
+        );
+
+        $exitCode = $command->run($input, $commandOutput);
+        self::assertSame(0, $exitCode);
+
+        $expectedOutput = new YamlGenerator()->generate(
+            Exception::createFromThrowable($socketTimedOutException)
+                ->withoutTrace()
+                ->getData()
+        );
+
+        self::assertEquals($expectedOutput, $commandOutput->fetch());
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public static function runSocketTimedOutDataProvider(): array
+    {
+        return [
+            'no timeout value' => [
+                'timeoutInSeconds' => null,
+            ],
+            'has timeout value, int' => [
+                'timeoutInSeconds' => 123,
+            ],
+            'has timeout value, numeric string' => [
+                'timeoutInSeconds' => '456',
             ],
         ];
     }
