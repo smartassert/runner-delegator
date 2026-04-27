@@ -180,7 +180,7 @@ abstract class AbstractDelegatorTestCase extends TestCase
 
     protected function removeCompiledArtifacts(string $target): void
     {
-        $this->compilerClient->request(sprintf('rm %s/*.php', $target));
+        $this->compilerClient->request(sprintf('rm %s/*.php', $target), new Handler());
     }
 
     /**

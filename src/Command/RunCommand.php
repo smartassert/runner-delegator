@@ -16,6 +16,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use webignition\BasilRunnerDocuments\Exception;
 use webignition\TcpCliProxyClient\Exception\ClientCreationException;
 use webignition\TcpCliProxyClient\Exception\SocketErrorException;
+use webignition\TcpCliProxyClient\Handler;
 use webignition\YamlDocumentGenerator\YamlGenerator;
 
 class RunCommand extends Command
@@ -78,7 +79,7 @@ class RunCommand extends Command
 
         if ($runnerClient instanceof RunnerClient) {
             try {
-                $runnerClient->request($path);
+                $runnerClient->request($path, new Handler());
             } catch (SocketErrorException $e) {
                 $this->logException($e);
             } catch (ClientCreationException $e) {

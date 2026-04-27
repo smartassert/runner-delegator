@@ -9,6 +9,7 @@ use SmartAssert\RunnerDelegator\Exception\NonExecutableRemoteTestException;
 use webignition\TcpCliProxyClient\Client;
 use webignition\TcpCliProxyClient\Exception\ClientCreationException;
 use webignition\TcpCliProxyClient\Exception\SocketErrorException;
+use webignition\TcpCliProxyClient\Exception\SocketTimedOutException;
 use webignition\TcpCliProxyClient\Handler;
 
 class RunnerClient extends Client
@@ -27,8 +28,10 @@ class RunnerClient extends Client
      * @throws SocketErrorException
      * @throws InvalidRemotePathException
      * @throws NonExecutableRemoteTestException
-     */
-    public function request(string $request, ?Handler $handler = null): void
+     * @throws \ErrorException
+     * @throws SocketTimedOutException
+ */
+    public function request(string $request, Handler $handler, ?int $timeoutInSeconds = null): void
     {
         parent::request(
             sprintf(self::RUNNER_COMMAND, $request),
