@@ -8,10 +8,10 @@ use Psr\Log\LoggerInterface;
 use SmartAssert\RunnerDelegator\Exception\InvalidRemotePathException;
 use SmartAssert\RunnerDelegator\Exception\NonExecutableRemoteTestException;
 use SmartAssert\RunnerDelegator\RunnerClient\RunnerClient;
+use Symfony\Component\Console\Attribute\Argument;
+use Symfony\Component\Console\Attribute\AsCommand;
+use Symfony\Component\Console\Attribute\Option;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use webignition\BasilRunnerDocuments\Exception;
 use webignition\TcpCliProxyClient\Exception\ClientCreationException;
@@ -20,6 +20,7 @@ use webignition\TcpCliProxyClient\Exception\SocketTimedOutException;
 use webignition\TcpCliProxyClient\Handler;
 use webignition\YamlDocumentGenerator\YamlGenerator;
 
+#[AsCommand(name: 'run')]
 class RunCommand extends Command
 {
     public const string OPTION_BROWSER = 'browser';
@@ -50,42 +51,21 @@ class RunCommand extends Command
         }
     }
 
-    protected function configure(): void
-    {
-        $this
-            ->setName(self::NAME)
-            ->setDescription('Command description')
-            ->addOption(
-                self::OPTION_BROWSER,
-                null,
-                InputOption::VALUE_REQUIRED,
-                'Browser to use'
-            )
-            ->addArgument(
-                self::ARGUMENT_PATH,
-                InputArgument::REQUIRED,
-                'Path to the generated test (to be passed on to a runner)'
-            )
-            ->addOption(
-                self::OPTION_TIMEOUT_IN_SECONDS,
-                null,
-                InputOption::VALUE_REQUIRED,
-                'Execution timeout in seconds'
-            )
-        ;
-    }
-
-    protected function execute(InputInterface $input, OutputInterface $output): int
-    {
-        $browser = $input->getOption(self::OPTION_BROWSER);
-        $browser = is_string($browser) ? $browser : '';
-
-        $path = $input->getArgument(self::ARGUMENT_PATH);
-        $path = is_string($path) ? $path : '';
-
-        $timeoutInSeconds = $input->getOption(self::OPTION_TIMEOUT_IN_SECONDS);
-        $timeoutInSeconds = is_numeric($timeoutInSeconds) ? (int) $timeoutInSeconds : self::DEFAULT_TIMEOUT_IN_SECONDS;
-
+    public function __invoke(
+        OutputInterface $output,
+        #[Option(
+            description: 'Browser to use',
+            name: self::OPTION_BROWSER
+        )]
+        string $browser = '',
+        #[Argument(
+            description: 'Path to the generated test (to be passed on to a runner',
+            name: self::ARGUMENT_PATH
+        )]
+        string $path = '',
+        #[Option(name: self::OPTION_TIMEOUT_IN_SECONDS)]
+        int $timeoutInSeconds = self::DEFAULT_TIMEOUT_IN_SECONDS,
+    ): int {
         $runnerClient = $this->runnerClients[$browser] ?? null;
 
         if ($runnerClient instanceof RunnerClient) {
