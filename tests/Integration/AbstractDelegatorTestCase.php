@@ -79,12 +79,10 @@ abstract class AbstractDelegatorTestCase extends TestCase
                       name: 'verify page is open'
                       status: passed
                       statements:
-                        -
-                          type: assertion
+                        - type: assertion
                           source: '$page.url is "http://html-fixtures/index.html"'
                           status: passed
-                        -
-                          type: assertion
+                        - type: assertion
                           source: '$page.title is "Test fixture web server default document"'
                           status: passed
                     EOD,
@@ -94,12 +92,10 @@ abstract class AbstractDelegatorTestCase extends TestCase
                       name: 'verify page is open'
                       status: passed
                       statements:
-                        -
-                          type: assertion
+                        - type: assertion
                           source: '$page.url is "http://html-fixtures/index.html"'
                           status: passed
-                        -
-                          type: assertion
+                        - type: assertion
                           source: '$page.title is "Test fixture web server default document"'
                           status: passed
                     EOD,
@@ -115,8 +111,7 @@ abstract class AbstractDelegatorTestCase extends TestCase
                       name: 'verify page is open'
                       status: passed
                       statements:
-                        -
-                          type: assertion
+                        - type: assertion
                           source: '$page.url is "http://html-fixtures/index.html"'
                           status: passed
                     EOD,
